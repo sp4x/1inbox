@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import SplitPane from 'react-split-pane';
 import Popup from './Popup.js';
 import Items from './Items.js';
+import jetpack from 'fs-jetpack'
+import uuidv1 from 'uuid/v1';
 
 class App extends Component {
 
   constructor(props) {
-    super();
+    super(props);
+    this.items = React.createRef();
+    this.datadir = jetpack.cwd("data");
 
     this.state = {
-      markdownSrc: "# Hello World",
-      showPopup: false,
-      items: ["hello world"]
+      showPopup: false
     }
   }
 
@@ -23,28 +23,29 @@ class App extends Component {
     });
   }
 
-  saveNote(md) {
+  saveNote(content) {
     var newItems = this.state.items;
-    if (md) {
-      newItems = newItems.concat(md);
+    if (content) {
+      this.datadir.writeAsync(uuidv1(), content).then((result) => {
+        this.items.current.forceUpdate();
+      });
     }
     this.setState({
-      showPopup: false,
-      items: newItems
+      showPopup: false
     });
   }
 
   render() {
     return (
       <div className='app'>
-        <h1>hihi</h1>
+        <h1>Inbox</h1>
         <button onClick={this.newNote.bind(this)}>New note</button>
 
-        <Items items={this.state.items} />
+        <Items ref={this.items} datadir={this.datadir} />
 
         {this.state.showPopup ?
           <Popup
-            text='Close Me'
+            id="foo"
             closePopup={this.saveNote.bind(this)}
           />
           : null

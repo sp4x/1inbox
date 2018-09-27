@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
+import jetpack from 'fs-jetpack'
+import Item from './Item.js';
 
 class Items extends Component {
-  constructor(props) {
-    super(props);
-  }
+  
 
   render() {
-    const listItems = this.props.items.map((item) =>
-      <div class="item">
-        <div class="item-content">{item}</div>
-      </div>
+    const feed = this.props.datadir.list().map((path) =>
+      <Item key={path} path={path}/>
     );
     return (
-      <div>{listItems}</div>
+      <div>{feed}</div>
     );
   }
 }

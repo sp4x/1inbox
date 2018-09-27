@@ -1,50 +1,46 @@
 import React, { Component } from 'react';
-import CodeMirror from '@skidding/react-codemirror';
+import SimpleMDE from 'react-simplemde-editor';
+import "simplemde/dist/simplemde.min.css";
 
-require('codemirror/lib/codemirror.css');
-require('codemirror/mode/javascript/javascript');
-require('codemirror/mode/python/python');
-require('codemirror/mode/xml/xml');
-require('codemirror/mode/markdown/markdown');
-require('codemirror/theme/monokai.css');
 
 class Popup extends Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      markdownSrc: "# Hello World",
-    }
+    this.value = "";
   }
 
-  updateCode(md) {
-      this.setState({
-            markdownSrc: md
-      });
+  updateContent(value) {
+    this.value = value;
   }
 
   saveAndExit(e) {
-    this.props.closePopup(this.state.markdownSrc);
+    this.props.closePopup(this.value);
   }
 
   exit(e) {
-      this.props.closePopup(null);
-    }
+    this.props.closePopup(null);
+  }
 
   render() {
-  var options = {
-        mode: 'markdown'
-   }
+    const id = this.props.id;
     return (
       <div className='popup'>
         <div className='popup-inner'>
           <div className="editor-pane">
-              <CodeMirror value={this.state.markdownSrc} onChange={this.updateCode.bind(this)}
-               options={options} height="100%"/>
-           </div>
-        <button onClick={this.saveAndExit.bind(this)}>Done</button>
-        <button onClick={this.exit.bind(this)}>Cancel</button>
+            <SimpleMDE
+              ref={this.editor}
+              onChange={this.updateContent.bind(this)}
+              options={{
+                autofocus: true,  
+                spellChecker: false,
+                toolbar: false,
+                status: false
+              }}
+            />
+          </div>
+          <button onClick={this.saveAndExit.bind(this)}>Done</button>
+          <button onClick={this.exit.bind(this)}>Cancel</button>
         </div>
       </div>
     );
