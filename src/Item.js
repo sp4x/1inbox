@@ -1,7 +1,4 @@
-
-
 import React, { Component } from 'react';
-import jetpack from 'fs-jetpack'
 
 class Item extends Component {
     constructor(props) {
@@ -13,13 +10,12 @@ class Item extends Component {
 
 
     componentWillMount() {
-        const datadir = jetpack.cwd("/home/vincenzo/dev/1inbox/data/");
-        datadir.readAsync(this.props.path).then((data) => {
-            this.setState({content: data});
+        this.props.datadir.readAsync(this.props.file, (err, data) => {
+            this.setState({ content: data });
         });
     }
 
-   
+
 
     render() {
         return (
