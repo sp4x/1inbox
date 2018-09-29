@@ -39,7 +39,7 @@ class Popup extends Component {
               }}
             />
           </div>
-          <button onClick={this.saveAndExit.bind(this)}>Done</button>
+          <button id="done" onClick={this.saveAndExit.bind(this)}>Done</button>
           <button onClick={this.exit.bind(this)}>Cancel</button>
         </div>
       </div>

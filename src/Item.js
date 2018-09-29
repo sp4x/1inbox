@@ -11,7 +11,9 @@ class Item extends Component {
 
     componentWillMount() {
         this.props.datadir.readAsync(this.props.file, (err, data) => {
-            this.setState({ content: data });
+            if (this._mounted) {
+                this.setState({ content: data });
+            }
         });
     }
 

@@ -57,7 +57,7 @@ class App extends Component {
     return (
       <div className='app'>
         <h1>Inbox</h1>
-        <button onClick={this.newNote.bind(this)}>New note</button>
+        <button id="newnote" onClick={this.newNote.bind(this)}>New note</button>
 
         <Feed ref={this.items} datadir={this.datadir} />
 
