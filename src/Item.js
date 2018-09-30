@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 class Item extends Component {
     constructor(props) {
@@ -25,7 +26,9 @@ class Item extends Component {
     render() {
         return (
             <div className="item">
-                <div className="item-content">{this.state.content}</div>
+                <div className="item-content">
+                    <ReactMarkdown source={this.state.content}/>
+                </div>
             </div>
         );
     }

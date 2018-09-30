@@ -9,7 +9,7 @@ class Feed extends Component {
       <Item key={file} datadir={this.props.datadir} file={file}/>
     );
     return (
-      <div>{feed}</div>
+      <div className="feed">{feed}</div>
     );
   }
 }
