@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 class Item extends Component {
     constructor(props) {
         super(props);
+        this.loadContent = true;
         this.state = {
             content: ""
         }
@@ -11,13 +12,15 @@ class Item extends Component {
 
     componentWillMount() {
         this.props.datadir.readAsync(this.props.file, (err, data) => {
-            if (this._mounted) {
+            if (this.loadContent) {
                 this.setState({ content: data });
             }
         });
     }
 
-
+    componentWillUnmount() {
+        this.loadContent = false;
+    }
 
     render() {
         return (

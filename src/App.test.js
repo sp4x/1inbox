@@ -23,14 +23,17 @@ describe('<App />', () => {
   });
 
   it('renders without crashing', () => {
-    const app = Enzyme.mount(<App fs={fs} />);
+    const app = Enzyme.shallow(<App fs={fs} />);
     expect(app.find("div").length).toBeGreaterThan(0);
   });
 
 
-  it('renders notes', () => {
+  it('renders notes', (done) => {
     const app = Enzyme.mount(<App fs={fs} />);
-    expect(app.find(".item").length).toBeGreaterThan(0);
+    process.nextTick(() => {
+      expect(app.find(".item").length).toBeGreaterThan(0);
+      done()
+    });
   });
 
   it('displays the new note editor', () => {
